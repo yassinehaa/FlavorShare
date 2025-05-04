@@ -1,21 +1,15 @@
 <div class="container">
-  <!-- Sidebar for Filters -->
+  <!-- Sidebar -->
   <div class="sidebar">
-    <h2>Filter Recipes</h2>
-
-    <div class="filter-section">
-      <h3>Cuisine</h3>
-      <label *ngFor="let category of categories">
-        <input type="checkbox" [value]="category.name" (change)="filterRecipes()"> {{ category.name }}
-      </label>
-    </div>
-
-    <div class="filter-section">
-      <h3>Diet</h3>
-      <label *ngFor="let diet of allDiets">
-        <input type="checkbox" [value]="diet" (change)="filterRecipes()"> {{ diet }}
-      </label>
-    </div>
+    <h2>Categories</h2>
+    <ul class="category-list">
+      <li
+        *ngFor="let category of categories"
+        [class.active]="selectedCategory === category.name"
+        (click)="filterByCategory(category.name)">
+        {{ category.name }}
+      </li>
+    </ul>
   </div>
 
   <!-- Recipe Grid -->
@@ -26,7 +20,6 @@
         <img [src]="recipe.image" alt="{{ recipe.name }}">
         <h3>{{ recipe.name }}</h3>
         <p>Cuisine: {{ recipe.cuisine }}</p>
-        <p>Diet: {{ recipe.diet.join(', ') }}</p>
         <p>Prep Time: {{ recipe.prepTime }}</p>
         <p>Rating: {{ recipe.rating }} ★</p>
         <p>Likes: {{ recipe.likes }}</p>

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { SearchService } from '../search.service';
 import { Recipe } from '../models/recipe.model';
-import {RouterLink} from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -16,8 +16,7 @@ export class HomeComponent implements OnInit {
   categories: { id: string; name: string }[] = [];
   allRecipes: Recipe[] = [];
   filteredRecipes: Recipe[] = [];
-  allDiets: string[] = [];
-  selectedDiets: string[] = [];
+  selectedCategory: string = '';
   searchQuery: string = '';
 
   constructor(private http: HttpClient, private searchService: SearchService) {}
@@ -33,9 +32,10 @@ export class HomeComponent implements OnInit {
   }
 
   fetchCategories(): void {
-    this.http.get<{ categories: { id: string; name: string }[] }>('http://localhost:3000/categories')
+    this.http.get<{ id: string; name: string }[]>('http://localhost:3000/categories')
       .subscribe(data => {
-        this.categories = data.categories;
+        this.categories = data;
+        console.log(this.categories);
       });
   }
 
@@ -44,34 +44,29 @@ export class HomeComponent implements OnInit {
       .subscribe(data => {
         this.allRecipes = data;
         this.filteredRecipes = data;
-        this.allDiets = [...new Set(data.flatMap(recipe => recipe.diet || []))];
         this.applyFilters();
       });
   }
-
-  filterRecipes(): void {
-    const dietCheckboxes = document.querySelectorAll('input[type="checkbox"][value]');
-    this.selectedDiets = Array.from(dietCheckboxes)
-      .filter((checkbox: any) => checkbox.checked)
-      .map((checkbox: any) => checkbox.value);
-
+  filterByCategory(categoryName: string): void {
+    this.selectedCategory = categoryName;
     this.applyFilters();
   }
 
+
   applyFilters(): void {
     this.filteredRecipes = this.allRecipes.filter(recipe => {
-      const matchesDiet =
-        this.selectedDiets.length === 0 ||
-        (Array.isArray(recipe.diet) &&
-          this.selectedDiets.some(selectedDiet =>
-            recipe.diet.some(diet => diet.toLowerCase() === selectedDiet.toLowerCase())
-          ));
+      const matchesCategory =
+        !this.selectedCategory || recipe.cuisine === this.selectedCategory;
 
       const matchesSearch =
         this.searchQuery === '' ||
         (recipe.name && recipe.name.toLowerCase().includes(this.searchQuery));
 
-      return matchesDiet && matchesSearch;
+      return matchesCategory && matchesSearch;
     });
+  }
+
+  getCategoryNameById(id: string): string | undefined {
+    return this.categories.find(cat => cat.id === id)?.name;
   }
 }

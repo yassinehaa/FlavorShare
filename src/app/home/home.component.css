@@ -1,40 +1,61 @@
+/* Container setup */
 .container {
   display: flex;
+  gap: 20px;
   padding: 20px;
+  box-sizing: border-box;
 }
 
+/* Sidebar styles */
 .sidebar {
-  width: 250px;
+  width: 220px;
   padding: 20px;
   background-color: #f9f9f9;
   border-right: 1px solid #ddd;
+  box-sizing: border-box;
 }
 
 .sidebar h2 {
   font-family: 'Dancing Script', cursive;
   color: #4CAF50;
   font-size: 24px;
+  margin-bottom: 15px;
 }
 
-.filter-section {
-  margin-bottom: 20px;
+/* Category list */
+.category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.filter-section h3 {
-  font-family: 'Dancing Script', cursive;
-  color: #4CAF50;
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.filter-section label {
-  font-size: 14px;
+.category-list li {
+  cursor: pointer;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  background-color: #fff;
   color: #333;
+  transition: background-color 0.2s;
+  font-size: 14px;
+  border: 1px solid #ccc;
 }
 
+.category-list li:hover {
+  background-color: #e0f2f1;
+}
+
+.category-list li.active {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+  border-color: #4CAF50;
+}
+
+/* Recipe grid */
 .recipe-grid {
   flex: 1;
-  padding: 20px;
+  padding: 0 10px;
 }
 
 .recipe-grid h2 {
@@ -50,56 +71,52 @@
   gap: 20px;
 }
 
+/* Recipe card */
 .recipe-card {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
   text-align: center;
-  padding-bottom: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+}
+
+.recipe-card:hover {
+  transform: translateY(-3px);
 }
 
 .recipe-card img {
   width: 100%;
   height: 150px;
   object-fit: cover;
+  border-radius: 4px;
 }
 
 .recipe-card h3 {
-  font-size: 16px;
-  margin: 10px 0;
+  font-size: 18px;
+  margin: 12px 0 8px;
   color: #333;
 }
 
-.recipe-info {
-  display: flex;
-  justify-content: space-around;
-  font-size: 12px;
-  color: #666;
-  margin-bottom: 10px;
+.recipe-card p {
+  font-size: 13px;
+  color: #555;
+  margin: 4px 0;
 }
 
-.dietary-tag {
-  background-color: #4CAF50;
-  color: white;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 10px;
-}
-
-.rating {
-  font-size: 14px;
-  color: #FFD700; /* Gold for stars */
-  margin-bottom: 10px;
-}
-
+/* Button */
 .btn-primary {
   background-color: #4CAF50;
   color: white;
   padding: 8px 16px;
   text-decoration: none;
   border-radius: 4px;
+  display: inline-block;
+  margin-top: 8px;
   font-size: 14px;
+  transition: background-color 0.2s;
 }
 
 .btn-primary:hover {
