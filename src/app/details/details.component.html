@@ -1,8 +1,10 @@
-<div *ngIf="recipe" class="recipe-card">
-  <img [src]="recipe.image" alt="{{ recipe.name }}">
-  <h3>{{ recipe.name }}</h3>
-  <p><strong>Prep Time:</strong> {{ recipe.prepTime }}</p>
-  <p><strong>Likes:</strong> {{ recipe.likes }}</p>
-  <p><strong>Rating:</strong> {{ recipe.rating }}</p>
-  <p><strong>Instructions:</strong> {{ recipe.instructions }}</p>
+<div *ngIf="recipe" class="recipe-card card shadow-sm mb-4">
+  <img [src]="recipe.image" alt="{{ recipe.name }}" class="card-img-top">
+  <div class="card-body">
+    <h3 class="card-title">{{ recipe.name }}</h3>
+    <p class="card-text"><strong>Prep Time:</strong> {{ recipe.prepTime }}</p>
+    <p class="card-text"><strong>Likes:</strong> {{ recipe.likes }}</p>
+    <p class="card-text"><strong>Rating:</strong> {{ recipe.rating }}</p>
+    <p class="card-text"><strong>Instructions:</strong> {{ recipe.instructions }}</p>
+  </div>
 </div>

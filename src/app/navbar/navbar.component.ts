@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
-import {RouterLink} from '@angular/router';
+import { SearchService } from '../search.service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [
-    RouterLink
-  ],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  constructor(private searchService: SearchService) {}
 
+  onSearch(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchService.updateQuery(value.trim());
+  }
 }

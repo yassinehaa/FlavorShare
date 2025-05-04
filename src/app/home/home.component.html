@@ -1,8 +1,37 @@
-<div *ngFor="let recipe of allrecipes">
-  <div class="recipe-card">
-    <img [src]="recipe.image" alt="{{ recipe.name }}">
-    <h3>{{ recipe.name }}</h3>
-    <p>{{ recipe.rating }}</p>
-    <a [routerLink]="['/details', recipe.id]" class="btn btn-primary">View Recipe</a>
+<div class="container">
+  <!-- Sidebar for Filters -->
+  <div class="sidebar">
+    <h2>Filter Recipes</h2>
+
+    <div class="filter-section">
+      <h3>Cuisine</h3>
+      <label *ngFor="let category of categories">
+        <input type="checkbox" [value]="category.name" (change)="filterRecipes()"> {{ category.name }}
+      </label>
+    </div>
+
+    <div class="filter-section">
+      <h3>Diet</h3>
+      <label *ngFor="let diet of allDiets">
+        <input type="checkbox" [value]="diet" (change)="filterRecipes()"> {{ diet }}
+      </label>
+    </div>
+  </div>
+
+  <!-- Recipe Grid -->
+  <div class="recipe-grid">
+    <h2>Recipes</h2>
+    <div class="grid">
+      <div *ngFor="let recipe of filteredRecipes" class="recipe-card">
+        <img [src]="recipe.image" alt="{{ recipe.name }}">
+        <h3>{{ recipe.name }}</h3>
+        <p>Cuisine: {{ recipe.cuisine }}</p>
+        <p>Diet: {{ recipe.diet.join(', ') }}</p>
+        <p>Prep Time: {{ recipe.prepTime }}</p>
+        <p>Rating: {{ recipe.rating }} ★</p>
+        <p>Likes: {{ recipe.likes }}</p>
+        <a [routerLink]="['/details', recipe.id]" class="btn btn-primary">View Recipe</a>
+      </div>
+    </div>
   </div>
 </div>
